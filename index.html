@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM ACCESS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+            100% { opacity: 0.3; }
+        }
+        
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(200, 160, 0, 0.5); }
+            50% { box-shadow: 0 0 15px rgba(200, 160, 0, 0.9); }
+            100% { box-shadow: 0 0 5px rgba(200, 160, 0, 0.5); }
+        }
+        
+        body {
+            font-family: 'Rajdhani', 'Orbitron', sans-serif;
+            background: radial-gradient(circle at center, #0a0a2a 0%, #000000 100%);
+            margin: 0;
+            padding: 20px;
+            color: #ffffff;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(135deg, rgba(90, 10, 130, 0.1) 0%, transparent 50%),
+                linear-gradient(45deg, rgba(200, 160, 0, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+            background-size: 3px 3px;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(0, 255, 255, 0.03) 50%,
+                transparent 100%
+            );
+            animation: scanline 8s linear infinite;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(200, 160, 0, 0.5), transparent);
+        }
+        
+        .button-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .tg-button {
+            background: linear-gradient(45deg, #6e00ff, #a100f1);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 10px 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(110, 0, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .how-to-use-button {
+            background: linear-gradient(45deg, #0062ff, #00a2ff);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 0;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 10px 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(0, 98, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .tg-button::before, .how-to-use-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent 45%,
+                rgba(255, 255, 255, 0.2) 50%,
+                transparent 55%
+            );
+            transform: rotate(30deg);
+            animation: pulse 3s infinite linear;
+        }
+        
+        .tg-button:hover, .how-to-use-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(110, 0, 255, 0.7);
+        }
+        
+        .how-to-use-button:hover {
+            box-shadow: 0 0 25px rgba(0, 98, 255, 0.7);
+        }
+        
+        .tg-button img, .how-to-use-button img {
+            width: 20px;
+            height: 20px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .game-container {
+            background: rgba(10, 10, 30, 0.7);
+            border: 1px solid rgba(200, 160, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .game-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(110, 0, 255, 0.4);
+            border-color: rgba(200, 160, 0, 0.6);
+        }
+        
+        .game-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(200, 160, 0, 0.7), transparent);
+        }
+        
+        .game-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(200, 160, 0, 0.3);
+            transition: all 0.3s;
+            filter: grayscale(30%) contrast(120%);
+        }
+        
+        .game-container:hover .game-logo {
+            transform: scale(1.05);
+            filter: grayscale(0%) contrast(130%) brightness(120%);
+            border-color: rgba(200, 160, 0, 0.7);
+        }
+        
+        .game-name {
+            font-size: 14px;
+            margin: 10px 0 0;
+            color: #ffffff;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+            transition: all 0.3s;
+        }
+        
+        .game-container:hover .game-name {
+            color: #c8a000;
+            text-shadow: 0 0 5px rgba(200, 160, 0, 0.5);
+        }
+        
+        .customer-service {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            position: relative;
+        }
+        
+        .customer-service::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            border-radius: 20px;
+            background: linear-gradient(90deg, transparent, rgba(200, 160, 0, 0.5), transparent);
+        }
+        
+        .info-text {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+            line-height: 1.5;
+            letter-spacing: 0.5px;
+        }
+        
+        .cs-button {
+            background: linear-gradient(45deg, #ff3d00, #ff6d00);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(255, 61, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .cs-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(255, 61, 0, 0.7);
+        }
+        
+        .cs-button img {
+            width: 20px;
+            height: 20px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .corner-accent {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .corner-accent.top-right {
+            top: -150px;
+            right: -150px;
+            background: radial-gradient(circle, rgba(200, 160, 0, 0.1) 0%, transparent 70%);
+        }
+        
+        .corner-accent.bottom-left {
+            bottom: -150px;
+            left: -150px;
+            background: radial-gradient(circle, rgba(110, 0, 255, 0.1) 0%, transparent 70%);
+        }
+        
+        /* New button styles */
+        .claim-button, .proofs-button {
+            background: linear-gradient(45deg, #c8a000, #ffd700);
+            color: #000;
+            border: none;
+            padding: 10px 15px;
+            font-size: 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            animation: glow 2s infinite;
+        }
+        
+        .claim-button::before, .proofs-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent 45%,
+                rgba(255, 255, 255, 0.3) 50%,
+                transparent 55%
+            );
+            transform: rotate(30deg);
+            animation: pulse 3s infinite linear;
+        }
+        
+        .claim-button:hover, .proofs-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(200, 160, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="scanline"></div>
+    <div class="corner-accent top-right"></div>
+    <div class="corner-accent bottom-left"></div>
+    
+    <div class="header">
+        <div class="button-row">
+            <button class="claim-button" id="claimButton">
+                <i class="fas fa-rupee-sign"></i> Claim ₹20,000
+            </button>
+            
+            <button class="proofs-button" id="winningProofsButton">
+                <i class="fas fa-trophy"></i> Winning Proofs
+            </button>
+        </div>
+        
+        <button class="tg-button" id="telegramBtn">
+            <img src="https://icons.veryicon.com/png/o/object/material_design_icons/telegram-2.png" alt="Telegram">
+            JOIN TELEGRAM
+        </button>
+    </div>
+    
+    <div class="container">
+        <!-- Game Containers 1-16 -->
+        <div class="game-container" onclick="window.location.href='1.html'">
+            <img src="logo1.png" alt="91CLUB" class="game-logo">
+            <div class="game-name">91CLUB</div>
+        </div>
+        
+        <div class="game-container" onclick="window.location.href='2.html'">
+            <img src="logo2.png" alt="55club" class="game-logo">
+            <div class="game-name">55club</div>
+        </div>
+        
+        <div class="game-container" onclick="window.location.href='3.html'">
+            <img src="logo3.png" alt="in999" class="game-logo">
+            <div class="game-name">in999</div>
+        </div>
+        
+        <div class="game-container" onclick="window.location.href='4.html'">
+            <img src="logo4.png" alt="Okwin" class="game-logo">
+            <div class="game-name">Daman</div>
+        </div>
+        
+        <div class="game-container" onclick="window.location.href='5.html'">
+            <img src="logo5.png" alt="Tiranga" class="game-logo">
+            <div class="game-name">Okwin</div>
+        </div>
+        
+        <div class="game-container" onclick="window.location.href='6.html'">
+            <img src="logo6.png" alt="Daman" class="game-logo">
+            <div class="game-name">Tiranga</div>
+        </div>
+        
+        <div class="game-container" onclick="window.location.href='7.html'">
+            <img src="logo7.png" alt="BigMumbai" class="game-logo">
+            <div class="game-name">Big Daddy</div>
+        </div>
+        
+        <div class="game-container" onclick="window.location.href='8.html'">
+            <img src="logo8.png" alt="BigDaddy" class="game-logo">
+            <div class="game-name">Bdgwin</div>
+        </div>
+        
+        <div class="game-container" onclick="window.location.href='9.html'">
+            <img src="logo9.png" alt="BdgWin" class="game-logo">
+            <div class="game-name">Big Mumbai</div>
+        </div>
+        
+        <div class="game-container" onclick="window.location.href='10.html'">
+            <img src="logo10.png" alt="Tashan" class="game-logo">
+            <div class="game-name">Jalwa Win</div>
+        </div>
+        
+        <div class="game-container" onclick="window.location.href='11.html'">
+            <img src="logo11.png" alt="DiuWin" class="game-logo">
+            <div class="game-name">DiuWin</div>
+        </div>
+        
+        <div class="game-container" onclick="window.location.href='12.html'">
+            <img src="logo12.png" alt="Jalwa Win" class="game-logo">
+            <div class="game-name">Tashan Win</div>
+        </div>
+        
+        <div class="game-container" onclick="window.location.href='13.html'">
+            <img src="logo13.png" alt="Tc Lottery" class="game-logo">
+            <div class="game-name">82Lottery</div>
+        </div>
+        
+        <div class="game-container" onclick="window.location.href='14.html'">
+            <img src="logo14.png" alt="51Club" class="game-logo">
+            <div class="game-name">51game</div>
+        </div>
+        
+        <div class="game-container" onclick="window.location.href='15.html'">
+            <img src="logo15.png" alt="82lottery" class="game-logo">
+            <div class="game-name">Raja Lottery</div>
+        </div>
+        
+        <div class="game-container" onclick="window.location.href='16.html'">
+            <img src="logo16.png" alt="Goa" class="game-logo">
+            <div class="game-name">Bdg Slots</div>
+        </div>
+        
+        <div class="game-container" onclick="window.location.href='17.html'">
+            <img src="logo17.png" alt="Bg678" class="game-logo">
+            <div class="game-name">Kwg Game</div>
+        </div>
+        
+        <div class="game-container" onclick="window.location.href='18.html'">
+            <img src="logo18.png" alt="Rajaluck" class="game-logo">
+            <div class="game-name">1win Aviator</div>
+        </div>
+        
+        
+        <!-- Customer Service Button -->
+        <div class="customer-service">
+            <div class="info-text">ALL SYSTEMS OPERATIONAL. ACCESS GRANTED TO PREMIUM PREDICTION ENGINES. FOR FULL SYSTEM ACCESS JOIN OFFICIAL CHANNEL @EARNINGSCRIPTER1</div>
+            <button class="cs-button" id="customerServiceBtn">
+                <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Customer Service">
+                CUSTOMER SUPPORT
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Function to open URL in external browser
+        function openInExternalBrowser(url) {
+            // Try using Android intent
+            if (typeof Android !== 'undefined' && Android.openInExternalBrowser) {
+                Android.openInExternalBrowser(url);
+            } 
+            // Fallback for other cases
+            else {
+                window.open(url, '_system');
+            }
+        }
+
+        // Add event listeners to external links only
+        document.getElementById('telegramBtn').addEventListener('click', function() {
+            openInExternalBrowser('https://telegram.dog/EarningScripter1');
+        });
+
+        document.getElementById('customerServiceBtn').addEventListener('click', function() {
+            openInExternalBrowser('https://telegram.dog/EarningScripter1_Bot');
+        });
+
+        // Add event listeners for new buttons
+        document.getElementById('claimButton').addEventListener('click', function() {
+            openInExternalBrowser('https://youtube.com'); // Replace with your YouTube video link
+        });
+
+        document.getElementById('winningProofsButton').addEventListener('click', function() {
+            window.location.href = 'proof.html'; // Changed from proofs.html to proof.html as per your request
+        });
+
+        // Game links remain as they were (opening in WebView)
+    </script>
+</body>
+</html>
