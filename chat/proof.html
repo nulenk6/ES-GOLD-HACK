@@ -2,68 +2,78 @@
 <html>
 <head>
   <title>Hack Chat System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background: #f0f0f0;
     }
     .chat-container {
-      max-width: 500px;
-      margin: 20px auto;
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
       background: white;
-      border-radius: 10px;
-      overflow: hidden;
+      height: 100vh;
       display: flex;
       flex-direction: column;
-      height: 90vh;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      border-radius: 0;
     }
     .chat-box {
       flex: 1;
       overflow-y: auto;
-      padding: 15px;
+      padding: 10px;
     }
     .message {
       display: flex;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
       align-items: flex-start;
     }
     .avatar {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
-      margin-right: 10px;
+      margin-right: 8px;
+      flex-shrink: 0;
     }
     .bubble {
       background: #e4e6eb;
-      padding: 10px 14px;
-      border-radius: 15px;
-      max-width: 75%;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      max-width: 80%;
     }
     .bubble img {
-      margin-top: 8px;
+      margin-top: 6px;
       max-width: 100%;
-      border-radius: 10px;
+      border-radius: 8px;
     }
     .input-area {
       display: flex;
       border-top: 1px solid #ccc;
+      padding: 8px;
+      background: #fff;
     }
     input {
       flex: 1;
       padding: 10px;
-      border: none;
+      border: 1px solid #ccc;
       outline: none;
-      font-size: 16px;
+      font-size: 14px;
+      border-radius: 5px;
     }
     button {
       background: #128c7e;
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 10px 16px;
+      margin-left: 8px;
+      border-radius: 5px;
+      font-size: 14px;
       cursor: pointer;
-      font-size: 16px;
     }
   </style>
 </head>
@@ -99,7 +109,7 @@
   const messages = [
     {
       text: "भाई यकीन नहीं हो रहा, 15,000 का withdrawal हो गया 🔥 Hack ne kamaal kar diya!",
-      img: "https://i.ibb.co/yY2w0Ny/ss2.png"
+      img: "logo1.png"
     },
     {
       text: "This hack is 100% real bro. Just earned ₹22,400 in 6 mins!",
@@ -156,7 +166,6 @@
     const input = document.getElementById("userInput");
     const text = input.value.trim();
     if (text !== "") {
-      // Add user message exactly like bot message, fully left
       addMessage("You", "https://i.pravatar.cc/40?img=12", text, "");
       input.value = "";
     }
@@ -171,5 +180,3 @@
 
 </body>
 </html>
-
-
