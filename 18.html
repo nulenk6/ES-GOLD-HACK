@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVIATOR PREDICTOR PRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Teko:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0f0f2d;
+            --secondary: #1428a0;
+            --accent: #ffd700;
+            --neon: #00ff41;
+            --text: #ffffff;
+            --highlight: #ff003c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary) 50%, var(--secondary) 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        .status-bar {
+            width: 100%;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Teko', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 16px;
+        }
+
+        .status-value {
+            color: var(--neon);
+            font-weight: 700;
+        }
+
+        /* MAIN CONTENT */
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        /* LOGO AREA */
+        .logo-area {
+            width: 150px;
+            height: 150px;
+            background: var(--highlight);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            position: relative;
+            box-shadow: 0 0 30px rgba(255, 0, 60, 0.5);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .logo-area::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border: 2px solid var(--accent);
+            z-index: -1;
+            border-radius: 22px;
+        }
+
+        .logo-img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+        }
+
+        .version-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            color: var(--accent);
+        }
+
+        /* STATUS ROWS */
+        .status-rows {
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 30px;
+        }
+
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .status-title {
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .status-data {
+            font-weight: 600;
+            color: var(--neon);
+        }
+
+        /* MAIN BUTTON */
+        .action-button {
+            width: 100%;
+            max-width: 280px;
+            height: 60px;
+            background: black;
+            border: 2px solid var(--accent);
+            color: var(--text);
+            font-family: 'Teko', sans-serif;
+            font-size: 24px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 30px 0;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .action-button:hover {
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .action-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent 45%,
+                rgba(255, 215, 0, 0.3) 50%,
+                transparent 55%
+            );
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+
+        /* INSTRUCTIONS */
+        .instructions {
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 300px;
+        }
+
+        /* BOTTOM BUTTONS */
+        .bottom-buttons {
+            width: 100%;
+            max-width: 280px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .nav-button {
+            width: 100%;
+            padding: 14px;
+            background: var(--secondary);
+            border: 1px solid var(--accent);
+            color: var(--text);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-align: center;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .nav-button:hover {
+            background: rgba(20, 40, 160, 0.8);
+        }
+
+        .button-icon {
+            font-size: 18px;
+        }
+
+        /* ANIMATIONS */
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(30deg); }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 480px) {
+            .status-item {
+                font-size: 14px;
+            }
+            
+            .logo-area {
+                width: 130px;
+                height: 130px;
+            }
+            
+            .action-button {
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+        <div class="status-item">
+        </div>
+        <div class="status-item">
+            <span>SYSTEM:</span>
+            <span class="status-value">ONLINE</span>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-container">
+        <!-- LOGO AREA -->
+        <div class="logo-area">
+            <img src="logo18.png" alt="Aviator Logo" class="logo-img">
+        </div>
+        
+        <div class="version-label">1win Aviator Hack</div>
+        
+        <!-- STATUS ROWS -->
+        <div class="status-rows">
+            <div class="status-row">
+                <span class="status-title">CONNECTION STATUS</span>
+                <span class="status-data">SECURE</span>
+            </div>
+            <div class="status-row">
+                <span class="status-title">RESULT</span>
+                <span class="status-data" id="lastResult">---</span>
+            </div>
+        </div>
+        
+        <!-- MAIN BUTTON -->
+        <button class="action-button" id="predictBtn">
+            <i class="fas fa-rocket button-icon"></i>
+            START PREDICTION
+        </button>
+        
+        <!-- INSTRUCTIONS -->
+        <div class="instructions">
+            Create a new 1win account by clicking on 'Register' button, if you use this mod in your old account, then mod will not work. 
+            <br>
+            'रजिस्टर' बटन पर क्लिक करके एक नया account बनाएं, यदि आप इस मॉड का उपयोग अपने पुराने account में करते हैं, तो मॉड काम नहीं करेगा। Promo Code = FREEMOD (कृपया बोनस के लिए प्रोमो कोड का उपयोग करें) 
+        </div>
+        
+        <!-- BOTTOM BUTTONS -->
+        <div class="bottom-buttons">
+            <button class="nav-button" onclick="openInBrowser('https://colorsignup.github.io/ES1/1win')">
+                <i class="fas fa-user-plus button-icon"></i>
+                REGISTER ACCOUNT
+            </button>
+            <button class="nav-button" onclick="openInBrowser('https://telegram.dog/EarningScripter1')">
+                <i class="fab fa-telegram button-icon"></i>
+                TELEGRAM CHANNEL
+            </button>
+            <button class="nav-button" onclick="openInBrowser('https://telegram.dog/EarningScripter1_Bot')">
+                <i class="fas fa-headset button-icon"></i>
+                SUPPORT
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Function to open URL in external browser
+        function openInBrowser(url) {
+            window.open(url, '_system');
+        }
+
+        const predictBtn = document.getElementById('predictBtn');
+        const lastResult = document.getElementById('lastResult');
+        
+        predictBtn.addEventListener('click', function() {
+            // Simulate prediction
+            predictBtn.disabled = true;
+            predictBtn.innerHTML = '<i class="fas fa-spinner fa-spin button-icon"></i> ANALYZING...';
+            
+            setTimeout(() => {
+                // Generate random result between 1.01x and 2.99x
+                const result = (Math.random() * 1.98 + 1.01).toFixed(2);
+                lastResult.textContent = `${result}x`;
+                
+                predictBtn.disabled = false;
+                predictBtn.innerHTML = '<i class="fas fa-rocket button-icon"></i> PREDICT AGAIN';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
