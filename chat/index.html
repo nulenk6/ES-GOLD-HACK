@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Wingo Hack Chat</title>
+  <title>Hack Chat System</title>
   <style>
     body {
       margin: 0;
@@ -10,29 +10,14 @@
     }
     .chat-container {
       max-width: 500px;
-      margin: 0 auto;
+      margin: 20px auto;
       background: white;
       border-radius: 10px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      height: 100vh;
+      height: 90vh;
       box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
-    .status-bar {
-      padding: 10px;
-      background: #075e54;
-      color: white;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      font-size: 16px;
-    }
-    .status-bar span {
-      margin-left: auto;
-      font-weight: normal;
-      font-size: 14px;
-      color: #d9fdd3;
     }
     .chat-box {
       flex: 1;
@@ -61,12 +46,6 @@
       max-width: 100%;
       border-radius: 10px;
     }
-    .typing {
-      font-size: 14px;
-      color: #999;
-      margin-left: 50px;
-      margin-bottom: 10px;
-    }
     .input-area {
       display: flex;
       border-top: 1px solid #ccc;
@@ -91,7 +70,6 @@
 <body>
 
 <div class="chat-container">
-  <div class="status-bar" id="statusBar">💬 Rajveer <span id="onlineStatus">online</span></div>
   <div class="chat-box" id="chatBox"></div>
   <div class="input-area">
     <input type="text" id="userInput" placeholder="Type a message..." />
@@ -120,63 +98,48 @@
 
   const messages = [
     {
-      text: "Wingo Hack lagate hi ₹9800 jeet gaya bhai 🔥 ab roj kama raha hoon",
-      img: "https://i.ibb.co/0XwXQ9G/ss3.png"
-    },
-    {
-      text: "Wingo result ka pattern samajh aa gaya bhai 💡 Hack ne kamaal kar diya",
+      text: "भाई यकीन नहीं हो रहा, 15,000 का withdrawal हो गया 🔥 Hack ne kamaal kar diya!",
       img: "https://i.ibb.co/yY2w0Ny/ss2.png"
     },
     {
-      text: "Aaj ₹12,400 withdraw kar liya Paytm me 😍 Hack OP hai bhai",
-      img: "https://i.ibb.co/M8x3WL1/ss5.png"
-    },
-    {
-      text: "Wingo Hack use karke 4 baar back to back jeeta 😱 Ab to daily fixed income hai",
-      img: "https://i.ibb.co/6Xy8hWy/ss6.png"
-    },
-    {
-      text: "Ye koi trick nahi bhai, legit hack hai 💯",
+      text: "This hack is 100% real bro. Just earned ₹22,400 in 6 mins!",
       img: "https://i.ibb.co/tmFVPh7/ss1.png"
     },
     {
-      text: "Kal ₹18,600 jeeta aur aaj ₹22,000 🤑 Wingo Hack is 🔥🔥🔥",
+      text: "3 baar win kiya back to back 😳 sab kuch change ho gaya!",
+      img: "https://i.ibb.co/0XwXQ9G/ss3.png"
+    },
+    {
+      text: "आज पहली बार ₹9,800 जीता हूँ... dil se shukriya bhai 💖",
       img: "https://i.ibb.co/9V0KphX/ss4.png"
     },
     {
-      text: "Bhai tune bola tha hack real hai... ab yakeen aa gaya ❤️",
-      img: "https://i.ibb.co/yY2w0Ny/ss2.png"
-    },
-    {
-      text: "Bhai paisa aa gaya account me 😭 pehli baar jeeta itna",
-      img: "https://i.ibb.co/9V0KphX/ss4.png"
-    },
-    {
-      text: "3 din me ₹42,000 bana liya Hack se, tu bhagwan hai bhai 💥",
+      text: "Real working hack! No scam, only profit 💸💥",
       img: "https://i.ibb.co/M8x3WL1/ss5.png"
     },
     {
-      text: "₹6,000 jeet gaya ek hi bet me 🔥 Wingo Hack ne zindagi badal di",
+      text: "मेरे तो ₹12,000 निकल गए सीधे पेटीएम में 😂😂",
+      img: "https://i.ibb.co/6Xy8hWy/ss6.png"
+    },
+    {
+      text: "Itna fast paisa kabhi nahi kamaya bhai 🔥 Hack sahi me dangerous hai",
       img: "https://i.ibb.co/yY2w0Ny/ss2.png"
+    },
+    {
+      text: "भाई मेरे account me ₹25,000 aa gaya 😭 meri maa ro padi khushi se",
+      img: "https://i.ibb.co/9V0KphX/ss4.png"
+    },
+    {
+      text: "Hack lagate hi 3 round jeeta consecutively 🔥🔥",
+      img: "https://i.ibb.co/M8x3WL1/ss5.png"
+    },
+    {
+      text: "I was broke. Now I’m up ₹17,900. Hack saved me.",
+      img: "https://i.ibb.co/tmFVPh7/ss1.png"
     }
   ];
 
-  const personalReplies = [
-    "Jo banda khud likh raha hai, usme already fire hai bro 🔥",
-    "Bhai tere andar wo spark hai jo sabme nahi hota 💯",
-    "Tujhme potential hai... bas ek sahi hack aur time chahiye 💡",
-    "Bro tu serious lag raha hai... tu karega bada kaam 💥",
-    "Jo try karta hai, wahi jeetta hai. Baaki dekhte reh jaate hain 👑",
-    "Ek baar sahi jagah trust karke dekh... sab badal jaayega 💫",
-    "Bhai tune message kiya... iska matlab tu ready hai kuch bada karne ko 😎",
-    "Jo sochta hai, wahi paata hai. Tu soch raha hai, tu paayega bhi! 🙌",
-    "Game ab tera hai bhai... tu next winner banne wala hai 💸"
-  ];
-
   const chatBox = document.getElementById("chatBox");
-  const typingIndicator = document.createElement("div");
-  typingIndicator.className = "typing";
-  typingIndicator.innerText = "typing...";
 
   function addMessage(name, photo, text, img = "") {
     const msgDiv = document.createElement("div");
@@ -193,35 +156,20 @@
     const input = document.getElementById("userInput");
     const text = input.value.trim();
     if (text !== "") {
+      // Add user message exactly like bot message, fully left
       addMessage("You", "https://i.pravatar.cc/40?img=12", text, "");
-      setTimeout(() => {
-        const reply = personalReplies[Math.floor(Math.random() * personalReplies.length)];
-        const bot = users[Math.floor(Math.random() * users.length)];
-        addMessage(bot.name, bot.photo, reply);
-      }, 2000);
       input.value = "";
     }
   }
 
-  function showTypingThenMessage() {
+  setInterval(() => {
     const user = users[Math.floor(Math.random() * users.length)];
     const msg = messages[Math.floor(Math.random() * messages.length)];
-
-    document.getElementById("statusBar").innerHTML = `💬 ${user.name} <span id="onlineStatus">typing...</span>`;
-    chatBox.appendChild(typingIndicator);
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    setTimeout(() => {
-      typingIndicator.remove();
-      document.getElementById("onlineStatus").innerText = "online";
-      addMessage(user.name, user.photo, msg.text, msg.img);
-    }, 2000);
-  }
-
-  setInterval(() => {
-    showTypingThenMessage();
+    addMessage(user.name, user.photo, msg.text, msg.img);
   }, 5000);
 </script>
 
 </body>
 </html>
+
+
