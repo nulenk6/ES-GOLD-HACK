@@ -171,12 +171,21 @@
     }
   }
 
+  // 🟢 Show 1st message instantly
+  window.onload = () => {
+    const user = users[Math.floor(Math.random() * users.length)];
+    const msg = messages[Math.floor(Math.random() * messages.length)];
+    addMessage(user.name, user.photo, msg.text, msg.img);
+  };
+
+  // 🔁 Then every 5 sec
   setInterval(() => {
     const user = users[Math.floor(Math.random() * users.length)];
     const msg = messages[Math.floor(Math.random() * messages.length)];
     addMessage(user.name, user.photo, msg.text, msg.img);
   }, 5000);
 </script>
+
 
 </body>
 </html>
